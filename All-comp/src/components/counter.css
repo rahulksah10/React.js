@@ -1,0 +1,13 @@
+.counter-Container {
+    background-color: #f0f8ff; /* same as aliceblue */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 2rem;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: auto;
+    margin: auto;
+}
