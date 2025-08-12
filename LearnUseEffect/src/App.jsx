@@ -1,8 +1,13 @@
 import './App.css'
-import { useEffect , useState } from 'react';
+import { useEffect, useState } from 'react';
+import Loggercomp from './component/Loggercomp';
+import Timercomp from './component/Timercomp';
+import Datafetcher from './component/Datafetcher';
+import ResizeComp from './component/ResizeComp';
 
 function App() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
+  // const [total, setTotal] = useState(1);
   //use effect
   //first -> side_effect function 
   //secon -> clean-Up function
@@ -17,7 +22,7 @@ function App() {
 
   // variation : 1
   // runs on every render
-      //------------>
+  //------------>
   // useEffect(() => {
   //   alert("i will come on first render")
   // });
@@ -25,26 +30,66 @@ function App() {
 
   // variation : 2 
   //that runs on only first order
-      //--------->
+  //--------->
   //  useEffect(() => {
   //     alert("I wil run on only first render")
   //  }, []);
 
 
   // variation : 3
+  // useEffect(() => {
+  //  alert("i will run every time when count is updated")
+  // }, [count]);
 
-  function handleclick() {
-    setCount(count + 1)
-  }
+  // variation: 4
+  // multiple dependencies
+  //------------>
+  // useEffect(() => {
+  //    alert("i will run every time when count/total is updated")
+  // }, [count, total]);
+
+  // variation: 5
+  // this time add a cleanup function
+  //------------>
+
+  // useEffect(() => {
+  //   alert("count/total is updated")
+  //   return () => {
+  //     alert("I will run when state is unmounted( purana state change hoga tb)")
+  //   };
+  // }, [count, total]);
+
+
+  // function handleclick() {
+  //   setCount(count + 1)
+  // }
+
+  // function handletotal() {
+  //   setTotal(total + 1)
+  // }
+
 
   return (
     <>
-      <div>
-        <button className='border' onClick={handleclick}>
-          click me
-        </button>
-        count : {count}
-      </div>
+
+     {/* <Loggercomp /> */}
+     {/* <Timercomp /> */}
+     {/* <Datafetcher /> */}
+     <ResizeComp />
+        {/* <div>
+          <button className='border' onClick={handleclick}>
+
+            count update
+          </button>
+          <br />
+          count : {count}
+          <br />
+          <button className='border' onClick={handletotal}>
+            total update
+          </button>
+          <br />
+          Total : {total}
+        </div> */}
     </>
   )
 }
