@@ -10,10 +10,12 @@ function App() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
-  function onSubmit(data) {
+  async function onSubmit(data) {
+    //Api call ko simulate krte h
+    await new Promise((resolve) => setTimeout(resolve, 3000))
     console.log("submitting the form", data)
   }
 
@@ -24,11 +26,11 @@ function App() {
         <label htmlFor="">FirstName: </label>
         <input
           className="border"
-         {...register("firstName",
-          {
-            required: true,
-            minLength: { value: 3, message: ' min length atleast 3' }, maxLength: { value: 8, message: ' reached maximum length' },
-          })} type="text"  />
+          {...register("firstName",
+            {
+              required: true,
+              minLength: { value: 3, message: ' min length atleast 3' }, maxLength: { value: 8, message: ' reached maximum length' },
+            })} type="text" />
         {errors.firstName && <p>{errors.firstName.message}</p>}
       </div>
       <br />
@@ -49,7 +51,10 @@ function App() {
         })} type="text" className="border" />
         {errors.lastName && <p>{errors.lastName.message}</p>}
       </div>
-      <button type="submit">submit</button>
+      <input type="submit" disabled={isSubmitting}
+        value={isSubmitting ? "Submitting" : "Submit"}
+        className="border px-4 py-1 mt-2 cursor-pointer "
+      />
     </form>
   )
 }
