@@ -3,60 +3,46 @@ import { useForm } from "react-hook-form";
 
 
 import './App.css'
+import DynamicForm from "./DynamicForm";
 
 function App() {
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors, isSubmitting },
-  } = useForm();
+    const formFields = [
+    {
+      name: "name",
+      label: "Name",
+      type: "text",
+      placeholder: "Enter your name",
+      validation: { required: "Name is required" }
+    },
+    {
+      name: "email",
+      label: "Email",
+      type: "email",
+      placeholder: "Enter your email",
+      validation: {
+        required: "Email is required",
+        pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" }
+      }
+    },
+    {
+      name: "password",
+      label: "Password",
+      type: "password",
+      placeholder: "Enter password",
+      validation: {
+        required: "Password is required",
+        minLength: { value: 6, message: "Min 6 chars" }
+      }
+    }
+  ];
 
-  async function onSubmit(data) {
-    //Api call ko simulate krte h
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-    console.log("submitting the form", data)
-  }
+  const handleFormSubmit = (data) => {
+    console.log("Form Data:", data);
+  };
 
-  return (
-
-    <form className="flex flex-col items-center  px-4" onSubmit={handleSubmit(onSubmit)}>
-      <div >
-        <label htmlFor="">FirstName: </label>
-        <input
-          className="border"
-          {...register("firstName",
-            {
-              required: true,
-              minLength: { value: 3, message: ' min length atleast 3' }, maxLength: { value: 8, message: ' reached maximum length' },
-            })} type="text" />
-        {errors.firstName && <p>{errors.firstName.message}</p>}
-      </div>
-      <br />
-      <div>
-        <label htmlFor="">MiddleName: </label>
-        <input {...register("middleName", {
-          required: true,
-          minLength: { value: 3, message: ' min length atleast 3' }, maxLength: { value: 8, message: ' reached maximum length' },
-        })} type="text" className="border" />
-        {errors.middleName && <p>{errors.middleName.message}</p>}
-      </div>
-      <br />
-      <div>
-        <label htmlFor="">LastName: </label>
-        <input {...register("lastName", {
-          required: true,
-          minLength: { value: 3, message: ' min length atleast 3' }, maxLength: { value: 8, message: ' reached maximum length' },
-        })} type="text" className="border" />
-        {errors.lastName && <p>{errors.lastName.message}</p>}
-      </div>
-      <input type="submit" disabled={isSubmitting}
-        value={isSubmitting ? "Submitting" : "Submit"}
-        className="border px-4 py-1 mt-2 cursor-pointer "
-      />
-    </form>
-  )
+  return <DynamicForm  fields={formFields} onSubmit={handleFormSubmit} />;
 }
+
 
 export default App
