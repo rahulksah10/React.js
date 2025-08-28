@@ -22,9 +22,9 @@ const Paste = () => {
 
 
   return (
-    <div>
+    <div className='ml-4 p-3'>
       <input
-        className='border rounded-2xl min-w-[600px] mt-4 p-2'
+        className='border rounded-2xl min-w-[600px] mt-4 ml-4 p-2'
         type="search"
         placeholder='search here'
         value={serchTerm}
