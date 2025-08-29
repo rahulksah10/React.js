@@ -9,7 +9,7 @@ const Navbar = () => {
         <ul className=' flex font-medium space-x-2.5 cursor-pointer '>
             <li onClick={()=> navigate('/')}>Home</li>
             <li onClick={()=> navigate('/pastes')}>Paste</li>
-            <li onClick={()=> navigate('/pastes/:id')}>View paste</li>
+            {/* <li onClick={()=> navigate('/pastes/:id')}>View paste</li> */}
         </ul>
       </nav>
     </div>

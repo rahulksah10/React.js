@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeFromPastes } from '../Redux/PasteSlice';
 import toast from 'react-hot-toast';
+import { Link } from "react-router";
 
 const Paste = () => {
 
@@ -46,17 +47,24 @@ const Paste = () => {
                     {paste.content}
                   </div>
                   <div className=' flex  flex-row place-content-evenly '>
-                    <button className='border px-3 py-2 rounded-full cursor-pointer '>Edit</button>
-                    <button className='border px-3 rounded-full py-2 cursor-pointer '>View</button>
+                    <button
+                      className='border px-3 py-2 rounded-full cursor-pointer '>
+                      <Link to={`/?pasteId=${paste?._id}`}> Edit</Link>
+                    </button>
+                    <button 
+                    className='border px-3 rounded-full py-2 cursor-pointer '>
+                      <Link to={`/pastes/${paste?._id}`}>View</Link>
+                      </button>
                     <button
                       onClick={() => handleDelete(paste?._id)}
                       className='border px-3 rounded-full py-2 cursor-pointer '>Delete</button>
                     <button
-                     onClick={ () => { navigator.clipboard.writeText(paste?.content)
-                      toast.success("Copied to clipboard")
-                     }}
+                      onClick={() => {
+                        navigator.clipboard.writeText(paste?.content)
+                        toast.success("Copied to clipboard")
+                      }}
 
-                    className='border px-3 rounded-full py-2 cursor-pointer '>Copy</button>
+                      className='border px-3 rounded-full py-2 cursor-pointer '>Copy</button>
                     <button className='border px-3 rounded-full py-2 cursor-pointer' >share</button>
                   </div>
 
