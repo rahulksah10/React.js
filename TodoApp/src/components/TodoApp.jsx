@@ -1,6 +1,57 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 const TodoApp = () => {
+  const [todos, setTodos] = useState(() => {
+    try {
+      const saved = localStorage.getItem('todos');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [input, setInput] = useState('');
+  const [editingId, setEditingId] = useState(null);
+  const [editingText, setEditingText] = useState('');
+  const [filter, setFilter] = useState('all');
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
+  const addTodo = (e) => {
+    e.preventDefault();
+    const text = input.trim();
+    if (!text) return;
+    setTodos([{ id: Date.now(), text, completed: false }, ...todos]);
+    setInput('');
+    inputRef.current.focus();
+  };
+
+  const toggleComplete = (id) => {
+    setTodos(todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo));
+  };
+
+  const deleteTodo = (id) => {
+    setTodos(todos.filter(todo => todo.id !== id));
+  };
+
+  const startEdit = (id, text) => {
+    setEditingId(id);
+    setEditingText(text);
+  };
+
+  const saveEdit = (id) => {
+    const text = editingText.trim();
+    if (!text) {
+      deleteTodo(id);
+    } else {
+      setTodos(todos.map(todo => todo.id === id ? { ...todo, text } : todo));
+    }
+    setEditingId(null);
+    setEditingText('');
+  };
+
   
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
