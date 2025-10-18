@@ -1,7 +1,22 @@
 import React from 'react'
 
 const SearchFilter = () => {
-    
+
+const [searchTerm, setSearchTerm] = useState("");
+
+  const users = [
+    "Rahul Kumar",
+    "Jiya Sharma",
+    "Aman Gupta",
+    "Sneha Singh",
+    "Vikash Patel",
+    "Priya Verma",
+  ];
+
+  // Filter the list based on search term
+  const filteredUsers = users.filter((user) =>
+    user.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
    <div style={styles.container}>
