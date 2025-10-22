@@ -8,7 +8,8 @@ const ModalPopup = () => {
 
 
     return (
-        <div style={styles.wrapper}>
+        
+        <div style={styles.wrapper} className='bg-red-300' >
             <button style={styles.openBtn} onClick={openModal}>
                 Open Modal
             </button>
