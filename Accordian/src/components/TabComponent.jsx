@@ -14,8 +14,8 @@ const TabsComponent = () => {
       <div className="bg-white shadow-2xl rounded-2xl w-[90%] max-w-md p-6">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">🗂️ Tech Tabs</h2>
 
-        {/* Tabs Header */}
-        <div className="flex justify-between mb-4 bg-gray-100 p-1 rounded-xl">
+       
+        <div className="flex justify-between mb-4 bg-gray-100 p-4 gap-4 rounded-xl">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -31,7 +31,7 @@ const TabsComponent = () => {
           ))}
         </div>
 
-        {/* Tabs Content */}
+        
         <div className="p-4 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 text-sm leading-relaxed shadow-inner transition-all duration-500">
           {tabs.find((tab) => tab.id === activeTab)?.content}
         </div>
