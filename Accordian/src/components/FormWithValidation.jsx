@@ -52,7 +52,7 @@ const FormWithValidation = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 font-poppins">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-100 via-purple-100 to-pink-100 font-poppins">
       <div className="bg-white p-8 rounded-2xl shadow-2xl w-[90%] max-w-md">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
           📝 Registration Form

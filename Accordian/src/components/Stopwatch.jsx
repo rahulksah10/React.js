@@ -5,7 +5,6 @@ const Stopwatch = () => {
   const [isActive, setIsActive] = useState(false);
   const intervalRef = useRef(null);
 
-  // Start / Pause Timer
   const toggleTimer = () => {
     if (isActive) {
       clearInterval(intervalRef.current);
@@ -17,19 +16,16 @@ const Stopwatch = () => {
     setIsActive(!isActive);
   };
 
-  // Reset Timer
   const resetTimer = () => {
     clearInterval(intervalRef.current);
     setTime(0);
     setIsActive(false);
   };
 
-  // Cleanup interval on unmount
   useEffect(() => {
     return () => clearInterval(intervalRef.current);
   }, []);
 
-  // Format Time
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -37,7 +33,7 @@ const Stopwatch = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-orange-100 font-poppins">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-purple-100 via-pink-100 to-orange-100 font-poppins">
       <div className="bg-white rounded-2xl shadow-2xl p-8 w-[90%] max-w-sm text-center">
         <h2 className="text-2xl font-semibold mb-6 text-gray-800">
           ⏱ Stopwatch Timer
