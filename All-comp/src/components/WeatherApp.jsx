@@ -14,19 +14,26 @@ const WeatherApp = () => {
 
     try {
       const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=YOUR_API_KEY&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=London&appid=3315839b16aa6b985548d2bb7135d12c&units=metric`
       );
 
-      const data = await res.json();
-
-      if (data.cod === "404") {
-        setError("City not found");
+      if (!res.ok) {
+        if (res.status === 404) {
+          setError("City not found");
+        } else if (res.status === 401) {
+          setError("Invalid API Key — please verify your OpenWeather key");
+        } else {
+          setError("Something went wrong. Try again later.");
+        }
         setWeather(null);
-      } else {
-        setWeather(data);
-        setError("");
+        return;
       }
+
+      const data = await res.json();
+      setWeather(data);
+      setError("");
     } catch (err) {
+      console.error(err);
       setError("Failed to fetch weather data");
       setWeather(null);
     }
@@ -39,7 +46,9 @@ const WeatherApp = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-200 via-blue-100 to-indigo-100 font-poppins">
       <div className="bg-white p-8 rounded-2xl shadow-2xl w-[90%] max-w-md text-center">
-        <h2 className="text-2xl font-semibold mb-6 text-gray-800">🌤️ Weather App</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-gray-800">
+          🌤️ Weather App
+        </h2>
 
         {/* Input Box */}
         <div className="flex mb-4">
@@ -63,7 +72,7 @@ const WeatherApp = () => {
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
         {/* Weather Result */}
-        {weather && (
+        {weather && weather.main && weather.sys && (
           <div className="mt-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 shadow-inner">
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
               {weather.name}, {weather.sys.country}
