@@ -5,7 +5,37 @@ const WeatherApp = () => {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
 
-  
+  const fetchWeather = async () => {
+    if (!city.trim()) {
+      setError("Please enter a city name");
+      setWeather(null);
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=YOUR_API_KEY&units=metric`
+      );
+
+      const data = await res.json();
+
+      if (data.cod === "404") {
+        setError("City not found");
+        setWeather(null);
+      } else {
+        setWeather(data);
+        setError("");
+      }
+    } catch (err) {
+      setError("Failed to fetch weather data");
+      setWeather(null);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") fetchWeather();
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-200 via-blue-100 to-indigo-100 font-poppins">
       <div className="bg-white p-8 rounded-2xl shadow-2xl w-[90%] max-w-md text-center">
